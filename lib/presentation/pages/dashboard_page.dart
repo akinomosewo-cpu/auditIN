@@ -227,7 +227,7 @@ class _DashboardContent extends StatelessWidget {
                 // Feeder Info
                 if (state.summary.userProfile != null)
                   _FeederInfoCard(
-                    profile: state.summary.userProfile!,
+                    userProfile: state.summary.userProfile!,
                   ).animate(delay: 350.ms).fadeIn().slideY(begin: 0.1),
 
                 const Gap(32),
@@ -255,7 +255,7 @@ class _DashboardContent extends StatelessWidget {
 }
 
 class _FeederInfoCard extends StatelessWidget {
-  final userProfile;
+  final UserProfile userProfile;
 
   const _FeederInfoCard({required this.userProfile});
 

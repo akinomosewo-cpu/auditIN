@@ -4,7 +4,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import '../../core/theme/app_theme.dart';
-import '../../domain/entities/power_log.dart';
 import '../blocs/history/history_bloc.dart';
 import '../widgets/section_header.dart';
 import '../widgets/stat_card.dart';

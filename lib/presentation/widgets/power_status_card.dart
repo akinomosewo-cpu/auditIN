@@ -26,7 +26,6 @@ class PowerStatusCard extends StatelessWidget {
     final gradient = isOn ? AppColors.powerOnGradient : AppColors.powerOffGradient;
     final statusColor = isOn ? AppColors.success : AppColors.danger;
     final statusLabel = isOn ? 'POWER ON' : 'POWER OFF';
-    final statusIcon = isOn ? Icons.bolt_rounded : Icons.power_off_rounded;
 
     return Container(
       padding: const EdgeInsets.all(24),

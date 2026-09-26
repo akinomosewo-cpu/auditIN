@@ -10,6 +10,10 @@ build/
 *.freezed.dart
 *.mocks.dart
 
+# power_log_model.g.dart is hand-authored (build_runner/hive_generator is not
+# available in the CI/dev sandbox this was produced in) and must be tracked.
+!lib/data/models/power_log_model.g.dart
+
 # Android
 **/android/**/gradle-wrapper.jar
 **/android/.gradle

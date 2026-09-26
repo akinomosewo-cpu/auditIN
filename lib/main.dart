@@ -52,8 +52,11 @@ void main() async {
   final getDashboardSummary = GetDashboardSummaryUseCase(repository);
   final getDailyStats = GetDailyStatsUseCase(repository);
   final watchPowerStatus = WatchPowerStatusUseCase(repository);
-  final generateComplaint = GenerateComplaintUseCase(repository);
-  final savePowerLog = SavePowerLogUseCase(repository);
+
+  // GenerateComplaintUseCase and SavePowerLogUseCase are instantiated directly
+  // where they're needed (ComplaintsPage, background power-status listener)
+  // rather than threaded through here, since they depend on the repository
+  // alone and don't need to be shared singletons.
 
   runApp(
     MultiRepositoryProvider(

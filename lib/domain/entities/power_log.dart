@@ -63,9 +63,9 @@ class DailyStat extends Equatable {
   double get deficitHours => (promisedHours - hoursOn).clamp(0, 24);
 
   double get extraChargeEstimate {
-    final bandBRate = AppConstants.bandBRatePerUnit;
+    const bandBRate = AppConstants.bandBRatePerUnit;
     final actualRate = band.ratePerUnit;
-    final avgDailyUnits = 10.0; // avg household consumption per hour
+    const avgDailyUnits = 10.0; // avg household consumption per hour
     return (actualRate - bandBRate) * avgDailyUnits * hoursOn / 1000;
   }
 
