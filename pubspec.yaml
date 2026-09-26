@@ -29,7 +29,7 @@ dependencies:
   connectivity_plus: ^5.0.2
 
   # Background Tasks
-  workmanager: ^0.5.2
+  workmanager: ^0.10.10
   flutter_background_service: ^5.0.5
 
   # Notifications
