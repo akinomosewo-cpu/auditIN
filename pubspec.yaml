@@ -24,6 +24,9 @@ dependencies:
   hive_flutter: ^1.1.0
   shared_preferences: ^2.2.2
 
+  # Auth
+  crypto: ^3.0.3
+
   # Battery & Connectivity
   battery_plus: ^7.1.1
   connectivity_plus: ^7.3.1

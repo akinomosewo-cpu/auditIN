@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:crypto/crypto.dart';
 import 'package:hive/hive.dart';
 import '../../data/models/auth_credential_model.dart';
 
@@ -121,28 +122,12 @@ class AuthService {
     return base64UrlEncode(bytes);
   }
 
-  /// A deterministic, salted hash of [password]. Not a substitute for a
-  /// real KMS-backed hashing scheme, but sufficient for gating an
-  /// on-device-only local session with no network component.
+  /// A salted SHA-256 hash of [password]. Not a substitute for a real
+  /// KMS-backed hashing scheme, but sufficient for gating an on-device-only
+  /// local session with no network component.
   static String hashPassword(String password, String salt) {
     final bytes = utf8.encode('$salt::$password');
-    int h1 = 0x811c9dc5; // FNV-1a offset basis
-    int h2 = 0x1000193;
-    for (final b in bytes) {
-      h1 = (h1 ^ b) & 0xFFFFFFFF;
-      h1 = (h1 * 0x01000193) & 0xFFFFFFFF;
-      h2 = (h2 + b) & 0xFFFFFFFF;
-      h2 = ((h2 << 5) | (h2 >> 27)) & 0xFFFFFFFF;
-      h2 = (h2 ^ b) & 0xFFFFFFFF;
-    }
-    // Run a second pass over the digest bytes so the output space is wide
-    // enough to make casual collisions impractical for this purpose.
-    final combined = '$h1-$h2-${bytes.length}';
-    int h3 = 0;
-    for (final unit in combined.codeUnits) {
-      h3 = (h3 * 31 + unit) & 0xFFFFFFFFFFFFFF;
-    }
-    return '$h1$h2$h3'.padLeft(32, '0');
+    return sha256.convert(bytes).toString();
   }
 }
 
