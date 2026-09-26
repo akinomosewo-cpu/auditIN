@@ -7,7 +7,7 @@ part 'auth_credential_model.g.dart';
 /// validates against it. This is NOT meant to be cryptographically
 /// bullet-proof — it only needs to gate access to the on-device data the
 /// user themselves already owns.
-@HiveType(typeId: 3)
+@HiveType(typeId: 4)
 class AuthCredentialModel extends HiveObject {
   @HiveField(0)
   final String name;

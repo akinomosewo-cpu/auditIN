@@ -11,7 +11,7 @@ part of 'auth_credential_model.dart';
 
 class AuthCredentialModelAdapter extends TypeAdapter<AuthCredentialModel> {
   @override
-  final int typeId = 3;
+  final int typeId = 4;
 
   @override
   AuthCredentialModel read(BinaryReader reader) {
