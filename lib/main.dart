@@ -5,12 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/theme/app_theme.dart';
 import 'core/constants/app_constants.dart';
 import 'data/models/power_log_model.dart';
+import 'data/models/auth_credential_model.dart';
 import 'data/datasources/power_local_datasource.dart';
 import 'data/repositories/power_repository_impl.dart';
 import 'domain/usecases/power_usecases.dart';
+import 'domain/services/auth_service.dart';
 import 'presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'presentation/blocs/history/history_bloc.dart';
-import 'presentation/pages/app_shell.dart';
+import 'presentation/pages/auth/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +38,7 @@ void main() async {
   Hive.registerAdapter(DailyStatModelAdapter());
   Hive.registerAdapter(UserProfileModelAdapter());
   Hive.registerAdapter(ComplaintModelAdapter());
+  Hive.registerAdapter(AuthCredentialModelAdapter());
 
   await Future.wait([
     Hive.openBox<PowerLogModel>(AppConstants.powerLogBox),
@@ -43,6 +46,7 @@ void main() async {
     Hive.openBox<UserProfileModel>('profile_box'),
     Hive.openBox<ComplaintModel>(AppConstants.complaintBox),
     Hive.openBox(AppConstants.settingsBox),
+    Hive.openBox<AuthCredentialModel>(AuthService.authBoxName),
   ]);
 
   // Wire up dependencies
@@ -95,7 +99,7 @@ class BandAAuditApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.dark,
-      home: const AppShell(),
+      home: const SplashPage(),
     );
   }
 }
