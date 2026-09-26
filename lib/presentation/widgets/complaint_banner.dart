@@ -12,18 +12,24 @@ class ComplaintBanner extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.danger.withOpacity(0.15),
+              AppColors.danger.withOpacity(0.14),
               AppColors.warning.withOpacity(0.10),
             ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.danger.withOpacity(0.3)),
+          borderRadius: BorderRadius.circular(22),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.danger.withOpacity(0.10),
+              blurRadius: 18,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
         child: Row(
           children: [

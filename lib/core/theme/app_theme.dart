@@ -5,104 +5,125 @@ import 'package:google_fonts/google_fonts.dart';
 class AppColors {
   AppColors._();
 
-  // Primary
-  static const Color primary = Color(0xFF0A84FF);
-  static const Color primaryDark = Color(0xFF0060CC);
-  static const Color primaryLight = Color(0xFF3FA0FF);
+  // Primary — single vibrant brand accent, used sparingly
+  static const Color primary = Color(0xFFFF6A3D);
+  static const Color primaryDark = Color(0xFFE0531F);
+  static const Color primaryLight = Color(0xFFFF9166);
 
   // Status
-  static const Color success = Color(0xFF30D158);
-  static const Color warning = Color(0xFFFFD60A);
-  static const Color danger = Color(0xFFFF453A);
-  static const Color info = Color(0xFF64D2FF);
+  static const Color success = Color(0xFF2FBE7A);
+  static const Color warning = Color(0xFFFFB020);
+  static const Color danger = Color(0xFFFF4D4F);
+  static const Color info = Color(0xFF3FA7FF);
 
-  // Power Band Colors
-  static const Color bandA = Color(0xFF30D158);
-  static const Color bandB = Color(0xFF0A84FF);
-  static const Color bandC = Color(0xFFFFD60A);
-  static const Color bandD = Color(0xFFFF9F0A);
-  static const Color bandE = Color(0xFFFF453A);
+  // Power Band Colors — colorful, distinct chips for Band A..E
+  static const Color bandA = Color(0xFF2FBE7A);
+  static const Color bandB = Color(0xFF3FA7FF);
+  static const Color bandC = Color(0xFFFFB020);
+  static const Color bandD = Color(0xFFFF8A3D);
+  static const Color bandE = Color(0xFFFF4D4F);
 
-  // Neutrals - Dark
-  static const Color background = Color(0xFF0C0C0E);
-  static const Color surface = Color(0xFF1C1C1E);
-  static const Color surfaceElevated = Color(0xFF2C2C2E);
-  static const Color surfaceHighest = Color(0xFF3A3A3C);
+  // Neutrals — warm off-white / pastel light theme (app default)
+  static const Color background = Color(0xFFFBF7F1);
+  static const Color surface = Color(0xFFFFFFFF);
+  static const Color surfaceElevated = Color(0xFFF5EFE4);
+  static const Color surfaceHighest = Color(0xFFEDE4D3);
 
-  // Neutrals - Light
-  static const Color backgroundLight = Color(0xFFF2F2F7);
+  // Neutrals - Light (kept as aliases for the light theme getter)
+  static const Color backgroundLight = Color(0xFFFBF7F1);
   static const Color surfaceLight = Color(0xFFFFFFFF);
-  static const Color surfaceElevatedLight = Color(0xFFF2F2F7);
+  static const Color surfaceElevatedLight = Color(0xFFF5EFE4);
 
-  // Text - Dark mode
-  static const Color textPrimary = Color(0xFFFFFFFF);
-  static const Color textSecondary = Color(0xFF8E8E93);
-  static const Color textTertiary = Color(0xFF48484A);
+  // Text — warm light theme (app default)
+  static const Color textPrimary = Color(0xFF1E1B16);
+  static const Color textSecondary = Color(0xFF7A7368);
+  static const Color textTertiary = Color(0xFFB8AF9E);
 
-  // Text - Light mode
-  static const Color textPrimaryLight = Color(0xFF000000);
-  static const Color textSecondaryLight = Color(0xFF3C3C43);
-  static const Color textTertiaryLight = Color(0xFFAEAEB2);
+  // Text - Light mode (kept as aliases for the light theme getter)
+  static const Color textPrimaryLight = Color(0xFF1E1B16);
+  static const Color textSecondaryLight = Color(0xFF7A7368);
+  static const Color textTertiaryLight = Color(0xFFB8AF9E);
 
-  // Borders
-  static const Color border = Color(0xFF38383A);
-  static const Color borderLight = Color(0xFFE5E5EA);
+  // Borders — used sparingly now; soft shadows do most of the separation
+  static const Color border = Color(0xFFEFE7D8);
+  static const Color borderLight = Color(0xFFEFE7D8);
+
+  // Soft card shadow, used instead of flat borders
+  static Color get cardShadow => const Color(0xFF1E1B16).withOpacity(0.06);
 
   // Gradient
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [Color(0xFF0A84FF), Color(0xFF5E5CE6)],
+    colors: [Color(0xFFFF6A3D), Color(0xFFFF8A3D)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const LinearGradient powerOnGradient = LinearGradient(
-    colors: [Color(0xFF30D158), Color(0xFF34C759)],
+    colors: [Color(0xFF2FBE7A), Color(0xFF34C759)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const LinearGradient powerOffGradient = LinearGradient(
-    colors: [Color(0xFFFF453A), Color(0xFFFF6961)],
+    colors: [Color(0xFFFF4D4F), Color(0xFFFF6961)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const LinearGradient cardGradient = LinearGradient(
-    colors: [Color(0xFF1C1C1E), Color(0xFF2C2C2E)],
+    colors: [Color(0xFFFFFFFF), Color(0xFFF5EFE4)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  /// Returns the semantic accent color for a Band A..E label.
+  static Color forBand(String bandKey) {
+    switch (bandKey.toUpperCase()) {
+      case 'A':
+        return bandA;
+      case 'B':
+        return bandB;
+      case 'C':
+        return bandC;
+      case 'D':
+        return bandD;
+      case 'E':
+        return bandE;
+      default:
+        return primary;
+    }
+  }
 }
 
 class AppTextStyles {
   AppTextStyles._();
 
   static TextStyle get displayLarge => GoogleFonts.inter(
-        fontSize: 34,
-        fontWeight: FontWeight.w700,
-        letterSpacing: -0.5,
-        height: 1.2,
+        fontSize: 40,
+        fontWeight: FontWeight.w800,
+        letterSpacing: -0.8,
+        height: 1.12,
       );
 
   static TextStyle get displayMedium => GoogleFonts.inter(
-        fontSize: 28,
+        fontSize: 32,
+        fontWeight: FontWeight.w800,
+        letterSpacing: -0.5,
+        height: 1.18,
+      );
+
+  static TextStyle get displaySmall => GoogleFonts.inter(
+        fontSize: 25,
         fontWeight: FontWeight.w700,
         letterSpacing: -0.3,
         height: 1.25,
       );
 
-  static TextStyle get displaySmall => GoogleFonts.inter(
-        fontSize: 22,
-        fontWeight: FontWeight.w600,
-        letterSpacing: -0.2,
-        height: 1.3,
-      );
-
   static TextStyle get headlineLarge => GoogleFonts.inter(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
+        fontSize: 21,
+        fontWeight: FontWeight.w700,
         letterSpacing: -0.1,
-        height: 1.35,
+        height: 1.3,
       );
 
   static TextStyle get headlineMedium => GoogleFonts.inter(
@@ -200,7 +221,7 @@ class AppTheme {
           color: AppColors.surface,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(24),
           ),
           margin: EdgeInsets.zero,
         ),
@@ -211,7 +232,7 @@ class AppTheme {
             elevation: 0,
             minimumSize: const Size(double.infinity, 56),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(22),
             ),
             textStyle: AppTextStyles.headlineSmall,
           ),
@@ -222,7 +243,7 @@ class AppTheme {
             side: const BorderSide(color: AppColors.primary, width: 1.5),
             minimumSize: const Size(double.infinity, 56),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(22),
             ),
             textStyle: AppTextStyles.headlineSmall,
           ),
@@ -231,22 +252,22 @@ class AppTheme {
           filled: true,
           fillColor: AppColors.surface,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.border),
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide.none,
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.border),
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(18),
             borderSide: const BorderSide(color: AppColors.primary, width: 2),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(18),
             borderSide: const BorderSide(color: AppColors.danger),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
           hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
           labelStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
         ),
@@ -277,6 +298,8 @@ class AppTheme {
         ),
       );
 
+  /// The app's primary theme: a warm, soft light aesthetic with generous
+  /// rounding, gentle shadows and a single vibrant accent color.
   static ThemeData get light => ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
@@ -306,10 +329,66 @@ class AppTheme {
           color: AppColors.surfaceLight,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: AppColors.borderLight),
+            borderRadius: BorderRadius.circular(24),
           ),
           margin: EdgeInsets.zero,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primary,
+            foregroundColor: Colors.white,
+            elevation: 0,
+            minimumSize: const Size(double.infinity, 56),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(22),
+            ),
+            textStyle: AppTextStyles.headlineSmall,
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: AppColors.primary,
+            side: const BorderSide(color: AppColors.primary, width: 1.5),
+            minimumSize: const Size(double.infinity, 56),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(22),
+            ),
+            textStyle: AppTextStyles.headlineSmall,
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: AppColors.surfaceLight,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: const BorderSide(color: AppColors.primary, width: 2),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: const BorderSide(color: AppColors.danger),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+          hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondaryLight),
+          labelStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondaryLight),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: AppColors.surfaceLight,
+          selectedItemColor: AppColors.primary,
+          unselectedItemColor: AppColors.textSecondaryLight,
+          type: BottomNavigationBarType.fixed,
+          elevation: 0,
+        ),
+        dividerTheme: const DividerThemeData(
+          color: AppColors.borderLight,
+          thickness: 0.5,
         ),
         textTheme: TextTheme(
           displayLarge: AppTextStyles.displayLarge.copyWith(color: AppColors.textPrimaryLight),

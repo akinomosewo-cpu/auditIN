@@ -261,12 +261,21 @@ class _FeederInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bandColor =
+        AppColors.forBand(userProfile.band.label.replaceAll('Band ', ''));
+
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(22),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.cardShadow,
+            blurRadius: 20,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,10 +283,10 @@ class _FeederInfoCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.primary.withOpacity(0.14),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
                   Icons.electrical_services_rounded,
@@ -294,13 +303,17 @@ class _FeederInfoCard extends StatelessWidget {
               ),
             ],
           ),
-          const Gap(14),
+          const Gap(16),
           _InfoRow(label: 'Feeder', value: userProfile.feederName),
-          const Gap(8),
+          const Gap(10),
           _InfoRow(label: 'District', value: userProfile.district),
-          const Gap(8),
-          _InfoRow(label: 'Band', value: userProfile.band.label),
-          const Gap(8),
+          const Gap(10),
+          _InfoRow.chip(
+            label: 'Band',
+            value: userProfile.band.label,
+            chipColor: bandColor,
+          ),
+          const Gap(10),
           _InfoRow(
             label: 'Promised Hours',
             value: '${userProfile.band.promisedHours}+ hrs/day',
@@ -319,8 +332,16 @@ class _FeederInfoCard extends StatelessWidget {
 class _InfoRow extends StatelessWidget {
   final String label;
   final String value;
+  final Color? chipColor;
 
-  const _InfoRow({required this.label, required this.value});
+  const _InfoRow({required this.label, required this.value})
+      : chipColor = null;
+
+  const _InfoRow.chip({
+    required this.label,
+    required this.value,
+    required Color this.chipColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -333,13 +354,29 @@ class _InfoRow extends StatelessWidget {
             color: AppColors.textSecondary,
           ),
         ),
-        Text(
-          value,
-          style: AppTextStyles.bodySmall.copyWith(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w500,
+        if (chipColor != null)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: chipColor!.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: Text(
+              value,
+              style: AppTextStyles.labelSmall.copyWith(
+                color: chipColor,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          )
+        else
+          Text(
+            value,
+            style: AppTextStyles.bodySmall.copyWith(
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
       ],
     );
   }
