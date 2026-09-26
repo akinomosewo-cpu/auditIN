@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:battery_plus/battery_plus.dart';
+import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 import '../models/power_log_model.dart';
 import '../../core/constants/app_constants.dart';
-import '../../domain/entities/power_log.dart';
 
 abstract class PowerLocalDataSource {
   Stream<PowerStatus> watchPowerStatus();
@@ -281,4 +281,79 @@ class ComplaintModel extends HiveObject {
     this.referenceNumber,
     this.sentAtMs,
   });
+}
+
+/// Hand-authored Hive TypeAdapter for [ComplaintModel].
+///
+/// This is written by hand (rather than via `hive_generator`/`build_runner`)
+/// because [ComplaintModel] lives outside a `part` file. It mirrors the
+/// generated-adapter format exactly.
+class ComplaintModelAdapter extends TypeAdapter<ComplaintModel> {
+  @override
+  final int typeId = 3;
+
+  @override
+  ComplaintModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return ComplaintModel(
+      id: fields[0] as String,
+      createdAt: fields[1] as DateTime,
+      periodStartMs: fields[2] as int,
+      periodEndMs: fields[3] as int,
+      averageHoursPerDay: fields[4] as double,
+      promisedHoursPerDay: fields[5] as double,
+      totalOutages: fields[6] as int,
+      totalDeficitHours: fields[7] as double,
+      estimatedOvercharge: fields[8] as double,
+      bandIndex: fields[9] as int,
+      statusIndex: fields[10] as int,
+      referenceNumber: fields[11] as String?,
+      sentAtMs: fields[12] as int?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, ComplaintModel obj) {
+    writer
+      ..writeByte(13)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.createdAt)
+      ..writeByte(2)
+      ..write(obj.periodStartMs)
+      ..writeByte(3)
+      ..write(obj.periodEndMs)
+      ..writeByte(4)
+      ..write(obj.averageHoursPerDay)
+      ..writeByte(5)
+      ..write(obj.promisedHoursPerDay)
+      ..writeByte(6)
+      ..write(obj.totalOutages)
+      ..writeByte(7)
+      ..write(obj.totalDeficitHours)
+      ..writeByte(8)
+      ..write(obj.estimatedOvercharge)
+      ..writeByte(9)
+      ..write(obj.bandIndex)
+      ..writeByte(10)
+      ..write(obj.statusIndex)
+      ..writeByte(11)
+      ..write(obj.referenceNumber)
+      ..writeByte(12)
+      ..write(obj.sentAtMs);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ComplaintModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

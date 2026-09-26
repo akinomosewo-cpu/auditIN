@@ -26,23 +26,20 @@ class PowerStatusCard extends StatelessWidget {
     final gradient = isOn ? AppColors.powerOnGradient : AppColors.powerOffGradient;
     final statusColor = isOn ? AppColors.success : AppColors.danger;
     final statusLabel = isOn ? 'POWER ON' : 'POWER OFF';
-    final statusIcon = isOn ? Icons.bolt_rounded : Icons.power_off_rounded;
+
+    final bandColor = AppColors.forBand(band.label.replaceAll('Band ', ''));
 
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: statusColor.withOpacity(0.3),
-          width: 1.5,
-        ),
+        borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: statusColor.withOpacity(0.08),
-            blurRadius: 24,
+            color: statusColor.withOpacity(0.14),
+            blurRadius: 28,
             spreadRadius: 0,
-            offset: const Offset(0, 8),
+            offset: const Offset(0, 10),
           ),
         ],
       ),
@@ -97,16 +94,16 @@ class PowerStatusCard extends StatelessWidget {
                 ],
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(8),
+                  color: bandColor.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(100),
                 ),
                 child: Text(
                   band.label,
                   style: AppTextStyles.labelSmall.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w600,
+                    color: bandColor,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
@@ -125,7 +122,7 @@ class PowerStatusCard extends StatelessWidget {
                   todayHoursOn.toStringAsFixed(1),
                   style: AppTextStyles.monoLarge.copyWith(
                     color: Colors.white,
-                    fontSize: 52,
+                    fontSize: 58,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -240,15 +237,12 @@ class _ActionChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: highlight
               ? AppColors.primary.withOpacity(0.15)
               : AppColors.surfaceElevated,
-          borderRadius: BorderRadius.circular(8),
-          border: highlight
-              ? Border.all(color: AppColors.primary.withOpacity(0.4))
-              : null,
+          borderRadius: BorderRadius.circular(100),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

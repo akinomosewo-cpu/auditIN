@@ -24,20 +24,23 @@ dependencies:
   hive_flutter: ^1.1.0
   shared_preferences: ^2.2.2
 
+  # Auth
+  crypto: ^3.0.3
+
   # Battery & Connectivity
-  battery_plus: ^5.0.3
-  connectivity_plus: ^5.0.2
+  battery_plus: ^7.1.1
+  connectivity_plus: ^7.3.1
 
   # Background Tasks
-  workmanager: ^0.5.2
+  workmanager: ^0.10.10
   flutter_background_service: ^5.0.5
 
   # Notifications
-  flutter_local_notifications: ^16.3.3
+  flutter_local_notifications: ^18.0.1
 
   # Location
   geolocator: ^11.0.0
-  geocoding: ^3.0.0
+  geocoding: ^5.0.0
 
   # Charts & Visualization
   fl_chart: ^0.67.0
@@ -90,17 +93,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/images/
-    - assets/icons/
-    - assets/fonts/
-  fonts:
-    - family: Satoshi
-      fonts:
-        - asset: assets/fonts/Satoshi-Regular.ttf
-        - asset: assets/fonts/Satoshi-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Satoshi-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Satoshi-Black.ttf
-          weight: 900
+  # No custom font/image assets are bundled yet; the app uses Google Fonts
+  # (Inter, loaded at runtime) for typography. Add an `assets:`/`fonts:`
+  # block here once real icon/image assets are added to assets/.

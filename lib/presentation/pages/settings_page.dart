@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hive/hive.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/routing/app_page_route.dart';
+import '../../data/models/auth_credential_model.dart';
+import '../../domain/services/auth_service.dart';
+import 'auth/login_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -14,6 +19,42 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _trackingEnabled = true;
   bool _notificationsEnabled = true;
   ElectricityBand _selectedBand = ElectricityBand.a;
+
+  Future<void> _handleLogout(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Log out?'),
+        content: const Text(
+          "You'll need your account/meter number and password to log back in.",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text('Log Out'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    final authService = AuthService(
+      authBox: Hive.box<AuthCredentialModel>(AuthService.authBoxName),
+      settingsBox: Hive.box(AppConstants.settingsBox),
+    );
+    await authService.logout();
+
+    if (!context.mounted) return;
+    Navigator.of(context).pushAndRemoveUntil(
+      AppPageRoute(builder: (_) => const LoginPage()),
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,6 +200,17 @@ class _SettingsPageState extends State<SettingsPage> {
               label: 'Clear All Logs',
               value: '',
               onTap: () {},
+              destructive: true,
+            ),
+
+            const Gap(24),
+            _SectionTitle(title: 'Account'),
+            const Gap(12),
+            _SettingsTile(
+              icon: Icons.logout_rounded,
+              label: 'Log Out',
+              value: '',
+              onTap: () => _handleLogout(context),
               destructive: true,
             ),
 
